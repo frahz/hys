@@ -16,8 +16,8 @@
   },
   {
     "name": "nekoBT",
-    "id": "hys.nekoBT",
-    "version": "0.0.1",
+    "id": "hys.nekobt",
+    "version": "0.0.2",
     "type": "torrent",
     "accuracy": "high",
     "ratio": 0,

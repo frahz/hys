@@ -7,6 +7,7 @@ interface TorrentQuery {
   imdbId?: string // imdb id
   tmdbId?: number // tmdb anime id
   titles: string[] // list of titles and alternative titles
+  absoluteEpisodeNumber?: number
   episode?: number
   episodeCount?: number // total episode count for the series
   resolution: '2160' | '1080' | '720' | '540' | '480' | ''
