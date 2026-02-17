@@ -1,4 +1,4 @@
-import AbstractSource from "./abstract";
+import AbstractSource from "./abstract.js";
 
 export default new class SeaDex extends AbstractSource {
   url = atob('aHR0cHM6Ly9yZWxlYXNlcy5tb2UvYXBpL2NvbGxlY3Rpb25zL2VudHJpZXMvcmVjb3Jkcw==');

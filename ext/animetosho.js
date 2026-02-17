@@ -1,4 +1,4 @@
-import AbstractSource from './abstract'
+import AbstractSource from './abstract.js'
 
 const QUALITIES = ['1080', '720', '540', '480']
 

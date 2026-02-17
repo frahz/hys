@@ -1,4 +1,4 @@
-import AbstractSource from "./abstract";
+import AbstractSource from "./abstract.js";
 
 export default new class NekoBT extends AbstractSource {
   url = atob('aHR0cHM6Ly9uZWtvYnQudG8vYXBpL3Yx')
