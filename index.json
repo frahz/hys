@@ -1,0 +1,54 @@
+[
+  {
+    "name": "Seadex",
+    "id": "hys.seadex",
+    "version": "0.0.1",
+    "type": "torrent",
+    "accuracy": "high",
+    "ratio": 0,
+    "media": "sub",
+    "languages": [
+      "US"
+    ],
+    "icon": "https://releases.moe/favicon.png",
+    "update": "https://raw.githubusercontent.com/frahz/hys/index.json",
+    "code": "https://raw.githubusercontent.com/frahz/hys/ext/seadex.js"
+  },
+  {
+    "name": "nekoBT",
+    "id": "hys.nekoBT",
+    "version": "0.0.1",
+    "type": "torrent",
+    "accuracy": "high",
+    "ratio": 0,
+    "media": "sub",
+    "languages": [
+      "US"
+    ],
+    "icon": "https://nekobt.to/cdn/pfp/null/64",
+    "update": "https://raw.githubusercontent.com/frahz/hys/index.json",
+    "code": "https://raw.githubusercontent.com/frahz/hys/ext/nekobt.js",
+    "options": {
+      "apiKey": {
+        "type": "string",
+        "description": "API key for nekoBT",
+        "default": ""
+      }
+    }
+  },
+  {
+    "name": "AnimeTosho",
+    "id": "hys.animetosho",
+    "version": "0.0.1",
+    "type": "torrent",
+    "accuracy": "high",
+    "ratio": 0,
+    "media": "sub",
+    "languages": [
+      "US"
+    ],
+    "icon": "https://animetosho.org/inc/favicon.ico",
+    "update": "https://raw.githubusercontent.com/frahz/hys/index.json",
+    "code": "https://raw.githubusercontent.com/frahz/hys/ext/animetosho.js"
+  }
+]

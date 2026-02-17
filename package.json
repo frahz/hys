@@ -1,0 +1,7 @@
+{
+  "name": "hys",
+  "version": "0.0.1",
+  "description": "extensions",
+  "main": "index.json",
+  "types": "index.d.ts"
+}
