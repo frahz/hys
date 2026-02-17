@@ -1,6 +1,12 @@
-import AbstractSource from "./abstract.js";
 
-export default new class NekoBT extends AbstractSource {
+/**
+ * @typedef {import('../').TorrentSource} TorrentSource
+ */
+
+/**
+ * @implements {TorrentSource}
+ */
+export default new class NekoBT {
   url = atob('aHR0cHM6Ly9uZWtvYnQudG8vYXBpL3Yx')
 
   buildQuery(title, episode) {

@@ -1,6 +1,11 @@
-import AbstractSource from "./abstract.js";
+/**
+ * @typedef {import('../').TorrentSource} TorrentSource
+ */
 
-export default new class SeaDex extends AbstractSource {
+/**
+ * @implements {TorrentSource}
+ */
+export default new class SeaDex {
   url = atob('aHR0cHM6Ly9yZWxlYXNlcy5tb2UvYXBpL2NvbGxlY3Rpb25zL2VudHJpZXMvcmVjb3Jkcw==');
 
   /**
