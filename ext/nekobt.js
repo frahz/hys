@@ -25,7 +25,7 @@ export default new class NekoBT {
     const fetchUrl = `${this.url}/torrents/search?query=${encodeURIComponent(query)}&audio_lang=ja&fansub_lang=en&sub_lang=en`
 
     const res = await fetch(fetchUrl)
-    const data = res.json()
+    const data = await res.json()
 
     if (data.error) return []
 
