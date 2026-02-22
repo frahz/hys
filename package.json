@@ -3,5 +3,11 @@
   "version": "0.0.1",
   "description": "extensions",
   "main": "index.json",
-  "types": "index.d.ts"
+  "types": "index.d.ts",
+  "scripts": {
+    "test": "vitest"
+  },
+  "devDependencies": {
+    "vitest": "^4.0.18"
+  }
 }

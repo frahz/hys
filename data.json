@@ -1,0 +1,56 @@
+[
+    {
+        "anilistId": 182255,
+        "episodeCount": 10,
+        "episode": 5,
+        "anidbAid": 18886,
+        "anidbEid": 307401,
+        "tvdbId": 424536,
+        "tvdbEId": 11447768,
+        "malId": 59978,
+        "tmdbId": null,
+        "kitsuId": 49240,
+        "imdbId": null,
+        "absoluteEpisodeNumber": 33,
+        "titles": [
+            "Sousou no Frieren 2nd Season",
+            "Sousou no Frieren S2",
+            "Frieren: Beyond Journey’s End Season 2",
+            "Frieren: Beyond Journey’s End S2",
+            "葬送のフリーレン 第2期",
+            "Провожающая в последний путь Фрирен 2"
+        ],
+        "resolution": "1080",
+        "exclusions": []
+    },
+    {
+        "anilistId": 171627,
+        "episodeCount": 1,
+        "episode": 1,
+        "anidbAid": 18324,
+        "anidbEid": 294424,
+        "tvdbId": 397934,
+        "malId": 57555,
+        "tmdbId": "1218925",
+        "kitsuId": 48323,
+        "imdbId": "tt30472557",
+        "titles": [
+            "Chainsaw Man: Reze-hen",
+            "Chainsaw Man: Rezehen",
+            "Chainsaw Man – The Movie: Reze Arc",
+            "チェンソーマン レゼ篇",
+            "CSM: Reze-hen",
+            "CSM: Rezehen",
+            "CSM – The Movie: Reze Arc",
+            "Chainsaw Man – O Filme: Arco da Reze",
+            "Chainsaw Man - La película: El arco de Reze",
+            "Chainsaw Man  La película: El arco de Reze",
+            "Chainsaw Man - Il Film: La Storia di Reze",
+            "Chainsaw Man  Il Film: La Storia di Reze",
+            "Человек-бензопила: Фильм – История Резе",
+            "Человекбензопила: Фильм – История Резе"
+        ],
+        "resolution": "1080",
+        "exclusions": []
+    }
+]
