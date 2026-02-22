@@ -9,10 +9,20 @@
 export default new class NekoBT {
   url = atob('aHR0cHM6Ly9uZWtvYnQudG8vYXBpL3Yx')
 
-  buildQuery(title, episode) {
-    let query = title.replace(/[^\w\s-]/g, ' ').trim()
-    if (episode) query += ` ${episode.toString().padStart(2, '0')}`
-    return query
+  getAccuracy(item) {
+    if (item.mtl && item.hardsub) {
+      return "low"
+    }
+
+    switch (item.level) {
+      case 0:
+      case 1:
+      case 2:
+        return "mid"
+      case 3:
+      case 4:
+        return "high"
+    }
   }
 
   async searchMedia(title) {
@@ -48,7 +58,7 @@ export default new class NekoBT {
   /**
    * @type {import('../').SearchFunction}
    */
-  async single({ titles, absoluteEpisodeNumber, episode, tvdbId, tvdbEId }, options) {
+  async single({ titles, tvdbId, tvdbEId }, options) {
     if (!titles?.length) return []
 
     const mediaId = await this.searchMedia(titles[0])
@@ -59,11 +69,20 @@ export default new class NekoBT {
 
     if (media === null) return []
 
-    const episodeId = media.episodes.filter(item => item.tvdbId === tvdbEId)[0].id
+    const episode = media.episodes.filter(item => item.tvdbId === tvdbEId)[0]
 
-    // const query = this.buildQuery(titles[0], episode)
-    // const fetchUrl = `${this.url}/torrents/search?query=${encodeURIComponent(query)}&audio_lang=ja&fansub_lang=en&sub_lang=en`
-    const fetchUrl = `${this.url}/torrents/search?media_id=${mediaId}&episode_ids=${episodeId}&audio_lang=ja&fansub_lang=en&sub_lang=en`
+    const params = new URLSearchParams({
+      media_id: mediaId,
+      audio_lang: "ja",
+      fansub_lang: "en",
+      sub_lang: "en",
+    })
+
+    if (episode) {
+      params.append("episode_ids", episode.id);
+    }
+
+    const fetchUrl = `${this.url}/torrents/search?${params}`
 
     const res = await fetch(fetchUrl)
     const data = await res.json()
@@ -80,7 +99,7 @@ export default new class NekoBT {
         link: item.magnet,
         size: item.filesize,
         date: new Date(item.uploaded_at),
-        accuracy: "high",
+        accuracy: this.getAccuracy(item),
         seeders: item.seeders,
         leechers: item.leechers,
         downloads: item.completed,
