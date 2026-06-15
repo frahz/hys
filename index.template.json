@@ -11,8 +11,7 @@
       "US"
     ],
     "icon": "https://releases.moe/favicon.png",
-    "update": "https://raw.githubusercontent.com/frahz/hys/refs/heads/main/index.json",
-    "code": "https://raw.githubusercontent.com/frahz/hys/refs/heads/main/ext/seadex.js"
+    "codePath": "ext/seadex.js"
   },
   {
     "name": "nekoBT",
@@ -27,8 +26,7 @@
     ],
     "url": "aHR0cHM6Ly9uZWtvYnQudG8vYXBpL3Yx",
     "icon": "https://nekobt.to/cdn/pfp/null/64",
-    "update": "https://raw.githubusercontent.com/frahz/hys/refs/heads/main/index.json",
-    "code": "https://raw.githubusercontent.com/frahz/hys/refs/heads/main/ext/nekobt.js",
+    "codePath": "ext/nekobt.js",
     "options": {
       "apiKey": {
         "type": "string",
@@ -49,7 +47,6 @@
       "US"
     ],
     "icon": "https://animetosho.org/inc/favicon.ico",
-    "update": "https://raw.githubusercontent.com/frahz/hys/refs/heads/main/index.json",
-    "code": "https://raw.githubusercontent.com/frahz/hys/refs/heads/main/ext/animetosho.js"
+    "codePath": "ext/animetosho.js"
   }
 ]

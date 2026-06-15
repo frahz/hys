@@ -5,9 +5,17 @@
   "main": "index.json",
   "types": "index.d.ts",
   "scripts": {
+    "build": "npm run build:dist",
+    "build:dist": "node scripts/build-dist.mjs",
+    "build:dist:local": "BASE_URL=http://localhost:8080 node scripts/build-dist.mjs",
+    "build:index": "node scripts/build-index.mjs",
+    "build:index:local": "BASE_URL=http://localhost:8080 INDEX_FILE=index.local.json node scripts/build-index.mjs",
+    "dev": "BASE_URL=http://localhost:8080 node scripts/dev-dist.mjs",
+    "serve:local": "npm run build:dist:local && vite --host 127.0.0.1 --port 8080 --config vite.config.mjs dist",
     "test": "vitest"
   },
   "devDependencies": {
-    "vitest": "^4.0.18"
+    "vite": "^8.0.16",
+    "vitest": "^4.1.8"
   }
 }
