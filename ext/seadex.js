@@ -12,6 +12,7 @@ export default new class SeaDex {
    * @type {import('../').SearchFunction}
    */
   async single({ anilistId, titles, episodeCount }) {
+    if (!navigator.onLine) return []
     if (!anilistId) throw new Error('No anilistId provided')
     if (!titles?.length) throw new Error('No titles provided')
     const res = await fetch(`${this.url}?page=1&perPage=1&filter=alID%3D%22${anilistId}%22&skipTotal=1&expand=trs`)
@@ -25,7 +26,7 @@ export default new class SeaDex {
 
     return trs.filter(({ infoHash, files }) => {
       if (infoHash === '<redacted>') return false
-      if (episodeCount && episodeCount !== 1 && files.length === 1) return false // skip sigle file spam for now
+      if (episodeCount && episodeCount !== 1 && files.length === 1) return false // skip single file spam for now
       return true
     }).map(torrent => {
       return {

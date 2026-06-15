@@ -1,117 +1,53 @@
+const QUALITIES = ["1080", "720", "540", "480"];
 
-/**
- * @typedef {import('../').TorrentSource} TorrentSource
- */
-
-/**
- * @implements {TorrentSource}
- */
 export default new class NekoBT {
-  url = atob('aHR0cHM6Ly9uZWtvYnQudG8vYXBpL3Yx')
-
-  getAccuracy(item) {
-    if (item.mtl && item.hardsub) {
-      return "low"
-    }
-
-    switch (item.level) {
-      case 0:
-      case 1:
-      case 2:
-        return "mid"
-      case 3:
-      case 4:
-        return "high"
-    }
+  url = atob("aHR0cHM6Ly9uZWtvYnQudG8vYXBpL3YxLw==");
+  async _fetch(fetch, search) {
+    const res = await fetch(`${this.url}torrents/search?${search}`), json = await res.json()
+    if (json.error) throw new Error("NekoBT: " + json.message)
+    if (!json.data) throw new Error("NekoBT: Invalid response from server!")
+    return json.data
   }
-
-  async searchMedia(title) {
-    const fetchUrl = `${this.url}/media/search?query=${encodeURIComponent(title)}`
-
-    const res = await fetch(fetchUrl)
-    const data = await res.json()
-
-    if (data.error) return null
-
-    /**@type {any[]}*/
-    const results = data.data.results
-
-    if (!results.length) return null
-
-    const media = results[0]
-
-    // TODO: maybe use TVDB ID as well to validate?
-    return media.id
-  }
-
-  async getMedia(mediaId) {
-    const fetchUrl = `${this.url}/media/${mediaId}`
-
-    const res = await fetch(fetchUrl)
-    const data = await res.json()
-
-    if (data.error) return null
-
-    return data.data
-  }
-
-  /**
-   * @type {import('../').SearchFunction}
-   */
-  async single({ titles, tvdbId, tvdbEId }, options) {
-    if (!titles?.length) return []
-
-    const mediaId = await this.searchMedia(titles[0])
-
-    if (mediaId === null) return []
-
-    const media = await this.getMedia(mediaId)
-
-    if (media === null) return []
-
-    const episode = media.episodes.filter(item => item.tvdbId === tvdbEId)[0]
-
-    const params = new URLSearchParams({
-      media_id: mediaId,
-      audio_lang: "ja",
-      fansub_lang: "en",
-      sub_lang: "en",
+  async single({ tvdbId: tvdbId, tvdbEId: tvdbEId, tmdbId: tmdbId, episode: episode, fetch: fetch, resolution: resolution, exclusions: exclusions }, options) {
+    if (!navigator.onLine) return []
+    const mediaParams = new URLSearchParams({
+      limit: "1"
     })
-
-    if (episode) {
-      params.append("episode_ids", episode.id);
-    }
-
-    const fetchUrl = `${this.url}/torrents/search?${params}`
-
-    const res = await fetch(fetchUrl)
-    const data = await res.json()
-
-    if (data.error) return []
-
-    /**@type {any[]}*/
-    const results = data.data.results
-
-    return results.map(item => {
-      return {
-        title: item.title,
-        hash: item.infohash,
-        link: item.magnet,
-        size: item.filesize,
-        date: new Date(item.uploaded_at),
-        accuracy: this.getAccuracy(item),
-        seeders: item.seeders,
-        leechers: item.leechers,
-        downloads: item.completed,
-      }
+    tvdbId && mediaParams.append("tvdbid", tvdbId.toString()), tmdbId && mediaParams.append("tmdbid", tmdbId)
+    const mappings = await this._fetch(fetch, mediaParams)
+    if (!mappings?.media) throw new Error("NekoBT: No media found for the given anime!")
+    const ep = mappings.media.episodes?.find(ep => ep.tvdbId === tvdbEId) ?? mappings.media.episodes?.find(ep => ep.episode === episode), searchParams = new URLSearchParams({
+      media_id: mappings.media.id,
+      fansub_lang: "en,enm",
+      sub_lang: "en,enm"
     })
+    ep?.id && searchParams.append("episode_ids", ep.id.toString())
+    const high = ep?.tvdbId === tvdbEId
+    exclusions = exclusions.map(e => e.toLowerCase())
+    const excl = resolution ? exclusions.concat(...QUALITIES.filter(q => q !== resolution).map(q => `${q}p`)) : exclusions
+    return (await this._fetch(fetch, searchParams)).results?.filter(({ title: title }) => !excl.length || (title = title.toLowerCase(),
+      !excl.some(excl => title.includes(excl)))).map(entry => ({
+        title: entry.title,
+        link: `${this.url}torrents/${entry.id}/download?public=true`,
+        seeders: Number(entry.seeders),
+        leechers: Number(entry.leechers),
+        downloads: Number(entry.completed),
+        hash: entry.infohash,
+        size: Number(entry.filesize),
+        accuracy: high ? "high" : "medium",
+        type: (entry.level ?? 0) >= 3 ? "alt" : entry.batch ? "batch" : void 0,
+        date: new Date(entry.uploaded_at)
+      })) ?? []
   }
-
-  batch = this.single
-  movie = this.single
-
+  batch = () => []
+  movie = () => []
   async test() {
-    const res = await fetch(this.url)
-    return res.ok
+    try {
+      const { ok: ok } = await fetch(this.url + "announcements")
+      if (!ok) throw new Error(`Failed to load data from ${this.url}! Is the site down?`)
+      return !0
+    } catch (error) {
+      throw new Error(`Could not reach ${this.url}! Does the site work in your region?`)
+    }
   }
-}()
+}

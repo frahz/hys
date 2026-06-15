@@ -1,5 +1,6 @@
 [
   {
+    "manifestVersion": 2,
     "name": "Seadex",
     "id": "hys.seadex",
     "version": "0.0.1",
@@ -14,13 +15,15 @@
     "codePath": "ext/seadex.js"
   },
   {
+    "manifestVersion": 2,
     "name": "nekoBT",
     "id": "hys.nekobt",
-    "version": "0.0.3",
+    "version": "0.0.4",
     "type": "torrent",
     "accuracy": "high",
     "ratio": 0,
     "media": "sub",
+    "updatePeers": false,
     "languages": [
       "US"
     ],
@@ -36,17 +39,18 @@
     }
   },
   {
-    "name": "AnimeTosho",
-    "id": "hys.animetosho",
+    "manifestVersion": 2,
+    "name": "AnimeTosho (New)",
+    "id": "hys.animetosho-new",
     "version": "0.0.1",
     "type": "torrent",
-    "accuracy": "high",
+    "accuracy": "medium",
     "ratio": 0,
     "media": "sub",
     "languages": [
       "US"
     ],
-    "icon": "https://animetosho.org/inc/favicon.ico",
-    "codePath": "ext/animetosho.js"
+    "icon": "https://animetosho.xyz/static/favicon.ico",
+    "codePath": "ext/animetoshonew.js"
   }
 ]
